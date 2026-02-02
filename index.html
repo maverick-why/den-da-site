@@ -20,7 +20,6 @@
       --line:rgba(255,255,255,.08);
       --brand:#7bd3ff;
       --brand2:#a78bfa;
-      --accent:rgba(123,211,255,.18);
       --shadow: 0 18px 60px rgba(0,0,0,.35);
       --radius: 18px;
     }
@@ -92,6 +91,8 @@
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
     .hero-main{min-height:420px;}
+
+    /* Slides */
     .slide{
       position:absolute; inset:0;
       opacity:0; transform: scale(1.02);
@@ -106,13 +107,17 @@
       content:"";
       position:absolute; inset:0;
       background: linear-gradient(180deg, rgba(11,15,20,.25), rgba(11,15,20,.82));
+      /* ✅ 关键：遮罩层不吃点击，避免挡住按钮 */
+      pointer-events:none;
     }
     .slide.active{opacity:1; transform: scale(1)}
     .slide-content{position:relative; z-index:2; max-width:720px}
     .kicker{color:rgba(232,238,247,.85); font-size:12px; letter-spacing:.22em}
     .hero-title{margin:10px 0 10px; font-size:42px; line-height:1.1; letter-spacing:.08em}
     .hero-sub{margin:0; color:var(--muted); font-size:14px; line-height:1.7}
-    .hero-actions{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+
+    /* ✅ 关键：按钮层级更高，确保可点击 */
+    .hero-actions{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; position:relative; z-index:5}
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -123,6 +128,7 @@
       color:var(--text);
       font-weight:600;
       font-size:13px;
+      cursor:pointer;
     }
     .btn:hover{background: rgba(255,255,255,.08)}
     .btn.primary{background: linear-gradient(135deg, rgba(123,211,255,.24), rgba(167,139,250,.22));}
@@ -201,20 +207,6 @@
       gap:14px;
       align-items:stretch;
     }
-    .form{display:grid; gap:10px;}
-    label{font-size:12px; color:rgba(232,238,247,.8); letter-spacing:.12em}
-    input, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      outline:none;
-    }
-    input:focus, textarea:focus{border-color: rgba(123,211,255,.45); box-shadow: 0 0 0 4px rgba(123,211,255,.12)}
-    textarea{min-height:140px; resize:vertical}
-
     footer{padding:24px 0 42px; border-top:1px solid var(--line); color:rgba(232,238,247,.6)}
     footer .foot{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12px}
 
@@ -230,8 +222,8 @@
     }
   </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="container">
     <div class="nav">
@@ -244,33 +236,52 @@
         <a href="#approach">進め方</a>
         <a href="#industries">得意領域</a>
         <a href="#company">会社概要</a>
-        <a href="https://forms.gle/nBZxEDoX9oUJhkh69" class="cta">お問い合わせ</a>
+
+        <!-- ✅ 顶部お問い合わせ：直接新开表单 -->
+        <a href="https://forms.gle/nBZxEDoX9oUJhkh69"
+           class="cta"
+           target="_blank"
+           rel="noopener"
+           onclick="window.open(this.href,'_blank','noopener'); return false;">
+          お問い合わせ
+        </a>
       </nav>
     </div>
   </div>
 </header>
 
 <main id="top" class="container">
+
   <!-- HERO -->
   <section class="hero" aria-label="Hero">
     <div class="hero-grid">
 
       <div class="hero-card hero-main" id="hero">
-        <div class="slide active" data-i="0" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80')">
+
+        <!-- Slide 1 -->
+        <div class="slide active" data-i="0"
+             style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80')">
           <div class="slide-content">
             <div class="kicker">CONNECTING BUSINESS FLOW • CREATING VALUE</div>
             <h1 class="hero-title">業務を、つなぐ。<br>仕組みを、整える。</h1>
-            <p class="hero-sub">DEN&DA株式会社は、業務プロセス分析／既存システム診断／最適なITソリューション設計／技術アーキテクチャ最適化／導入支援に加え、行政書士事務所など士業向けCRM・業務SaaSの開発を通じて、現場の「詰まり」を解消し、成果につながるDXを実現します。</p>
+            <p class="hero-sub">
+              DEN&DA株式会社は、業務プロセス分析／既存システム診断／最適なITソリューション設計／技術アーキテクチャ最適化／導入支援に加え、
+              行政書士事務所など士業向けCRM・業務SaaSの開発を通じて、現場の「詰まり」を解消し、成果につながるDXを実現します。
+            </p>
+
             <div class="hero-actions">
+              <!-- ✅ 免费咨询：强制新开表单，彻底杜绝跳锚点/无反应 -->
               <a class="btn primary"
-   href="https://forms.gle/gQUnKFTzrRpvdpANA"
-   target="_blank"
-   rel="noopener">
-  無料相談（初回）
-</a>
+                 href="https://forms.gle/gQUnKFTzrRpvdpANA"
+                 target="_blank"
+                 rel="noopener"
+                 onclick="window.open(this.href,'_blank','noopener'); return false;">
+                無料相談（初回）
+              </a>
               <a class="btn" href="#services">提供サービスを見る</a>
             </div>
           </div>
+
           <div class="slide-dots" aria-label="Slides">
             <button class="dot active" data-goto="0" aria-label="Slide 1"></button>
             <button class="dot" data-goto="1" aria-label="Slide 2"></button>
@@ -278,11 +289,15 @@
           </div>
         </div>
 
-        <div class="slide" data-i="1" style="background-image:url('https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1600&q=80')">
+        <!-- Slide 2 -->
+        <div class="slide" data-i="1"
+             style="background-image:url('https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1600&q=80')">
           <div class="slide-content">
             <div class="kicker">PROCESS • SYSTEM • PEOPLE</div>
             <h1 class="hero-title">情報断点をなくし、<br>運用効率を上げる。</h1>
-            <p class="hero-sub">部門間の情報連携・データ流通・手戻りを、可視化 → 原因特定 → 仕組み化。小さく始めて、確実に改善を積み重ねます。</p>
+            <p class="hero-sub">
+              部門間の情報連携・データ流通・手戻りを、可視化 → 原因特定 → 仕組み化。小さく始めて、確実に改善を積み重ねます。
+            </p>
             <div class="hero-actions">
               <a class="btn primary" href="#approach">進め方（4ステップ）</a>
               <a class="btn" href="#contact">相談したい</a>
@@ -290,19 +305,26 @@
           </div>
         </div>
 
-        <div class="slide" data-i="2" style="background-image:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80')">
+        <!-- Slide 3 -->
+        <div class="slide" data-i="2"
+             style="background-image:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80')">
           <div class="slide-content">
             <div class="kicker">SUPPLY CHAIN • CRM • ANALYTICS</div>
             <h1 class="hero-title">貿易・サプライチェーンの<br>DXを加速。</h1>
-            <p class="hero-sub">調達—販売—物流を一気通貫で設計し、在庫可視化、納期短縮、パートナー協調、データ分析による市場洞察／リスク管理まで支援します。</p>
+            <p class="hero-sub">
+              調達—販売—物流を一気通貫で設計し、在庫可視化、納期短縮、パートナー協調、
+              データ分析による市場洞察／リスク管理まで支援します。
+            </p>
             <div class="hero-actions">
               <a class="btn primary" href="#industries">得意領域を見る</a>
               <a class="btn" href="#services">サービス一覧</a>
             </div>
           </div>
         </div>
+
       </div>
 
+      <!-- Right Focus -->
       <aside class="hero-card hero-side">
         <div class="mini-card">
           <h3>FOCUS</h3>
@@ -339,51 +361,26 @@
       </div>
       <span class="tag">ITコンサルティング / DX支援</span>
     </div>
-    <p class="lead">2つの議事録に記載された範囲で整理すると、DEN&DA株式会社の中核は「業務とITの両面から、詰まりの原因を特定し、実行可能な改善策を設計・導入支援する」ことです。具体サービスを以下にまとめます。</p>
+    <p class="lead">
+      DEN&DA株式会社の中核は「業務とITの両面から詰まりの原因を特定し、実行可能な改善策を設計し、導入まで伴走する」ことです。
+    </p>
 
     <div class="grid-3" style="margin-top:14px;">
-      <div class="card">
-        <h3>業務プロセス分析</h3>
-        <p>部門間の情報断点、データ流転の遅さ、作業の滞留を可視化し、原因と対策を構造化します。</p>
-      </div>
-      <div class="card">
-        <h3>既存システム診断</h3>
-        <p>現状のシステム構成・運用・データ設計を点検し、無駄／重複／属人化を整理します。</p>
-      </div>
-      <div class="card">
-        <h3>解決策設計（To-Be）</h3>
-        <p>要件を整理し、最短で効果を出す段階的な解決策（業務ルール＋システム）を設計します。</p>
-      </div>
+      <div class="card"><h3>業務プロセス分析</h3><p>情報断点・滞留・手戻りを可視化し、原因と対策を構造化します。</p></div>
+      <div class="card"><h3>既存システム診断</h3><p>構成・運用・データ設計を点検し、無駄／重複／属人化を整理します。</p></div>
+      <div class="card"><h3>解決策設計（To-Be）</h3><p>最短で効果が出る段階的な改善案（業務＋システム）を設計します。</p></div>
     </div>
 
     <div class="grid-3" style="margin-top:14px;">
-      <div class="card">
-        <h3>技術アーキテクチャ最適化</h3>
-        <p>拡張性・保守性・データ整合性の観点から、技術構成を整理し、運用コストを抑えます。</p>
-      </div>
-      <div class="card">
-        <h3>導入・実装支援</h3>
-        <p>要件定義、ベンダー選定、導入計画、運用設計まで伴走し、定着を重視します。</p>
-      </div>
-      <div class="card">
-        <h3>貿易DX（SCM/CRM/分析）</h3>
-        <p>調達—販売—物流の統合、在庫可視化、CRM導入、貿易データ分析による洞察・リスク管理を支援します。</p>
-      </div>
+      <div class="card"><h3>技術アーキテクチャ最適化</h3><p>拡張性・保守性・整合性の観点から技術構成を整理し、運用コストを抑えます。</p></div>
+      <div class="card"><h3>導入・実装支援</h3><p>要件定義、ベンダー選定、導入計画、運用設計まで伴走し、定着を重視します。</p></div>
+      <div class="card"><h3>貿易DX（SCM/CRM/分析）</h3><p>調達—販売—物流の統合、在庫可視化、分析基盤整備まで支援します。</p></div>
     </div>
 
     <div class="grid-3" style="margin-top:14px;">
-      <div class="card">
-        <h3>士業向けCRM・業務SaaS開発</h3>
-        <p>行政書士事務所などの顧客管理（CRM）、案件進捗、書類管理、タスク／期限管理を一体化。全オンラインで運用できる仕組みを構築します。</p>
-      </div>
-      <div class="card">
-        <h3>全オンライン化（受付〜フォロー）</h3>
-        <p>問い合わせ受付→案件登録→ステータス共有→履歴管理→再アプローチまでをオンラインで統合し、抜け漏れを防ぎます。</p>
-      </div>
-      <div class="card">
-        <h3>即時対応体制の設計</h3>
-        <p>「いつでも、すぐ返せる」を実現するために、通知・テンプレ・SLA・担当割当の運用設計まで含めて支援します。</p>
-      </div>
+      <div class="card"><h3>士業向けCRM・業務SaaS開発</h3><p>顧客・案件・書類・期限を一体化し、全オンライン運用を実現します。</p></div>
+      <div class="card"><h3>全オンライン化（受付〜フォロー）</h3><p>受付→案件登録→ステータス共有→履歴→再アプローチまで統合します。</p></div>
+      <div class="card"><h3>即時対応体制の設計</h3><p>通知・テンプレ・SLA・担当割当の運用設計で“即時レス”を仕組みにします。</p></div>
     </div>
   </section>
 
@@ -396,37 +393,13 @@
       </div>
       <span class="tag">調査 → 診断 → 設計 → 伴走</span>
     </div>
-    <p class="lead">議事録にある「初期調査 → 方案書（提案） → 次回報告」という流れを、現場で回る形に落とした標準プロセスです。</p>
+    <p class="lead">小さく始めて、確実に改善。最短で成果が出る順に実行していきます。</p>
 
     <div class="steps" style="margin-top:14px;">
-      <div class="step">
-        <div class="badge">01</div>
-        <div>
-          <div class="title">初期ヒアリング／現状把握</div>
-          <div class="desc">業務の流れ・KPI・課題感・関係者を整理。対象範囲とゴール（成功条件）を合意します。</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="badge">02</div>
-        <div>
-          <div class="title">詳細調査／ボトルネック診断</div>
-          <div class="desc">情報断点、データの二重入力、責任の曖昧さ、在庫／注文の見えにくさなどを特定します。</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="badge">03</div>
-        <div>
-          <div class="title">改善ロードマップ／方案書</div>
-          <div class="desc">クイックウィン（短期）と構造改善（中長期）に分け、投資対効果の高い順に実行案を提示します。</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="badge">04</div>
-        <div>
-          <div class="title">導入支援／定着</div>
-          <div class="desc">要件定義、運用設計、教育、改善サイクルまで伴走。現場に残る仕組みにします。</div>
-        </div>
-      </div>
+      <div class="step"><div class="badge">01</div><div><div class="title">初期ヒアリング／現状把握</div><div class="desc">対象範囲と成功条件を合意します。</div></div></div>
+      <div class="step"><div class="badge">02</div><div><div class="title">詳細調査／ボトルネック診断</div><div class="desc">情報断点・二重入力・責任曖昧などを特定します。</div></div></div>
+      <div class="step"><div class="badge">03</div><div><div class="title">改善ロードマップ／方案書</div><div class="desc">短期と中長期に分け、優先順位付きで提示します。</div></div></div>
+      <div class="step"><div class="badge">04</div><div><div class="title">導入支援／定着</div><div class="desc">運用設計・教育・改善サイクルまで伴走します。</div></div></div>
     </div>
   </section>
 
@@ -439,39 +412,21 @@
       </div>
       <span class="tag">SME / 貿易 / サプライチェーン / 士業</span>
     </div>
-    <p class="lead">議事録で触れられているニーズを中心に、DEN&DAが価値を出しやすい領域を整理しました。</p>
+    <p class="lead">価値を出しやすい領域を整理しました。</p>
 
     <div class="grid-2" style="margin-top:14px;">
-      <div class="card">
-        <h3>社内業務の詰まり（情報断点）</h3>
-        <p>部門間連携の断点、データ流転の遅さ、手戻りが多い状況に対し、業務とシステムをセットで整理・改善します。</p>
-      </div>
-      <div class="card">
-        <h3>国際貿易オペレーション</h3>
-        <p>供給網の見える化、注文履約の短縮、在庫可視性、複雑な取引先協調、データ分析基盤の整備を支援します。</p>
-      </div>
+      <div class="card"><h3>社内業務の詰まり（情報断点）</h3><p>部門間連携の断点、手戻りが多い状況を改善します。</p></div>
+      <div class="card"><h3>国際貿易オペレーション</h3><p>供給網の見える化、在庫・納期・協調を支援します。</p></div>
     </div>
 
     <div class="grid-2" style="margin-top:14px;">
-      <div class="card">
-        <h3>SCM統合（調達—販売—物流）</h3>
-        <p>点在したExcel/ツールを統合し、在庫回転率・納期遵守率・欠品率などの改善につなげます。</p>
-      </div>
-      <div class="card">
-        <h3>CRM導入・パートナー管理</h3>
-        <p>顧客・仕入先・物流パートナーとの関係性をデータ化し、対応品質と再現性を高めます。</p>
-      </div>
+      <div class="card"><h3>SCM統合（調達—販売—物流）</h3><p>点在したツールを統合し、KPI改善につなげます。</p></div>
+      <div class="card"><h3>CRM導入・パートナー管理</h3><p>顧客・仕入先・物流パートナーをデータ化します。</p></div>
     </div>
 
     <div class="grid-2" style="margin-top:14px;">
-      <div class="card">
-        <h3>士業（行政書士など）の業務オンライン化</h3>
-        <p>顧客・案件・書類・期限・コミュニケーションを一元化し、進捗の見える化と迅速な顧客対応を実現します。</p>
-      </div>
-      <div class="card">
-        <h3>問い合わせ即応・運用設計</h3>
-        <p>受付チャネル統合、通知設計、テンプレ返信、担当アサイン、SLA運用など“即時レス”を仕組みにします。</p>
-      </div>
+      <div class="card"><h3>士業（行政書士など）の業務オンライン化</h3><p>案件・書類・期限・連絡を一元化し迅速対応を実現。</p></div>
+      <div class="card"><h3>問い合わせ即応・運用設計</h3><p>通知・テンプレ・SLA・担当割当で即応を仕組みにします。</p></div>
     </div>
   </section>
 
@@ -482,23 +437,23 @@
         <div class="sec-no">04 / COMPANY</div>
         <h2>会社概要</h2>
       </div>
-      <span class="tag">※住所等は確定後に更新</span>
+      <span class="tag">東京</span>
     </div>
 
     <div class="grid-2">
       <div class="card">
         <h3>DEN&DA株式会社</h3>
         <p>
-          代表：王 恒毅（社長 兼 ITコンサルティング総監）<br>
-          事業：ITコンサルティング／業務改革支援／貿易DX支援／士業向けCRM・業務SaaS開発<br>
-          所在地：〒169-0073 東京都新宿区百人町1-18-8 大久保カドビル 404室
+          代表：王 恒毅<br>
+          所在地：東京（詳細は確定後に更新）<br>
+          事業：ITコンサルティング／業務改革支援／貿易DX支援／士業向けCRM・業務SaaS開発
         </p>
       </div>
       <div class="card">
         <h3>ミッション</h3>
         <p>
           「業務とデータを、滑らかにつなぐ。」<br>
-          現場の手触りを重視し、実行可能な改善策を、短いサイクルで積み上げます。
+          現場の手触りを重視し、実行可能な改善策を短いサイクルで積み上げます。
         </p>
       </div>
     </div>
@@ -511,7 +466,7 @@
         <div class="sec-no">05 / CONTACT</div>
         <h2>お問い合わせ</h2>
       </div>
-      <span class="tag">初回相談：無料（ドラフト）</span>
+      <span class="tag">Google Form（ゼロコード）</span>
     </div>
 
     <div class="contact">
@@ -524,51 +479,31 @@
           ・CRMや分析基盤を導入したいが、何から始めるべきか不明<br>
           ・行政書士事務所の顧客管理／案件進捗をオンライン化し、問い合わせに即応したい
         </p>
-        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-          <span class="tag">業務プロセス</span>
-          <span class="tag">システム統合</span>
-          <span class="tag">SCM</span>
-          <span class="tag">CRM</span>
-          <span class="tag">データ分析</span>
-        </div>
       </div>
 
       <div class="card">
-        <h3>フォーム（サンプル）</h3>
-        <form class="form" onsubmit="return false;">
-          <div>
-            <label for="cname">会社名</label>
-            <input id="cname" name="cname" placeholder="例）AZ Miles Limited" />
-          </div>
-          <div>
-            <label for="pname">お名前</label>
-            <input id="pname" name="pname" placeholder="例）Tanaka" />
-          </div>
-          <div>
-            <label for="email">メールアドレス</label>
-            <input id="email" name="email" type="email" placeholder="example@company.com" />
-          </div>
-          <div>
-            <label for="msg">ご相談内容</label>
-            <textarea id="msg" name="msg" placeholder="課題・背景・期待する成果を簡単にご記入ください"></textarea>
-          </div>
-         <a class="btn primary" href="https://forms.gle/XA7bbcbPSdgsgyzH6" target="_blank" rel="noopener">
-  送信（無料相談）
-</a>
-          <p style="margin:8px 0 0; color:var(--muted); font-size:12px; line-height:1.6;">
-            ※このフォームはデモです。実運用では送信先（メール/CRM）連携を実装します。
-          </p>
-        </form>
+        <h3>フォーム</h3>
+        <p style="margin:0 0 14px; color:var(--muted); font-size:13px; line-height:1.8;">
+          下のボタンからGoogleフォームを開いて送信してください。送信内容はあなたのGmailに届きます。
+        </p>
+        <a class="btn primary"
+           href="https://forms.gle/XA7bbcbPSdgsgyzH6"
+           target="_blank"
+           rel="noopener"
+           onclick="window.open(this.href,'_blank','noopener'); return false;">
+          フォームを開く（無料相談）
+        </a>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer>
   <div class="container">
     <div class="foot">
       <div>© <span id="y"></span> DEN&DA株式会社</div>
-      <div style="opacity:.9;">Designed in Japanese </div>
+      <div style="opacity:.9;">Designed in Japanese</div>
     </div>
   </div>
 </footer>
@@ -594,7 +529,6 @@
     stop();
     timer = setInterval(() => show(idx + 1), 6500);
   }
-
   function stop(){
     if (timer) clearInterval(timer);
     timer = null;
@@ -607,12 +541,10 @@
     });
   });
 
-  // Pause on hover
   const hero = document.getElementById('hero');
   hero.addEventListener('mouseenter', stop);
   hero.addEventListener('mouseleave', start);
 
-  // Init
   show(0);
   start();
   document.getElementById('y').textContent = new Date().getFullYear();
