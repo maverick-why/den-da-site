@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DEN&DA株式会社｜ITコンサルティング / DX・業務改革</title>
+  <meta name="description" content="DEN&DA株式会社は、業務プロセス分析・既存システム診断・最適なITソリューション設計・技術アーキテクチャ最適化・導入支援を提供するITコンサルティング会社です。" />
+
+  <!-- Japanese-friendly fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1520;
+      --text:#e8eef7;
+      --muted:#a9b6c7;
+      --line:rgba(255,255,255,.08);
+      --brand:#7bd3ff;
+      --brand2:#a78bfa;
+      --accent:rgba(123,211,255,.18);
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+      background: radial-gradient(1200px 700px at 20% 0%, rgba(167,139,250,.18), transparent 60%),
+                  radial-gradient(1000px 600px at 80% 10%, rgba(123,211,255,.16), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      letter-spacing:.02em;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px, 92vw); margin:0 auto;}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(11,15,20,.55);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:18px;
+    }
+    .brand{
+      display:flex; align-items:baseline; gap:10px;
+      font-weight:700;
+      letter-spacing:.12em;
+    }
+    .brand small{font-weight:600; color:var(--muted); letter-spacing:.08em}
+
+    .navlinks{display:flex; gap:18px; flex-wrap:wrap; align-items:center; justify-content:flex-end}
+    .navlinks a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px}
+    .navlinks a:hover{color:var(--text); background:rgba(255,255,255,.05)}
+
+    .cta{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(123,211,255,.22), rgba(167,139,250,.18));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      color:var(--text);
+      font-weight:600;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .cta:hover{filter:brightness(1.08)}
+
+    /* Hero */
+    .hero{padding:34px 0 18px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .hero-main{min-height:420px;}
+    .slide{
+      position:absolute; inset:0;
+      opacity:0; transform: scale(1.02);
+      transition: opacity .7s ease, transform .8s ease;
+      display:flex;
+      align-items:flex-end;
+      padding:26px;
+      background-size:cover;
+      background-position:center;
+    }
+    .slide::before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(11,15,20,.25), rgba(11,15,20,.82));
+    }
+    .slide.active{opacity:1; transform: scale(1)}
+    .slide-content{position:relative; z-index:2; max-width:720px}
+    .kicker{color:rgba(232,238,247,.85); font-size:12px; letter-spacing:.22em}
+    .hero-title{margin:10px 0 10px; font-size:42px; line-height:1.1; letter-spacing:.08em}
+    .hero-sub{margin:0; color:var(--muted); font-size:14px; line-height:1.7}
+    .hero-actions{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:600;
+      font-size:13px;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{background: linear-gradient(135deg, rgba(123,211,255,.24), rgba(167,139,250,.22));}
+
+    .hero-side{min-height:420px; display:grid; grid-template-rows: auto 1fr;}
+    .mini-card{padding:18px 18px 16px;}
+    .mini-card h3{margin:0 0 10px; font-size:14px; letter-spacing:.16em; color:rgba(232,238,247,.9)}
+    .mini-list{display:grid; gap:10px;}
+    .mini-item{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(255,255,255,.03);
+    }
+    .mini-item .t{font-weight:700; font-size:13px; letter-spacing:.08em}
+    .mini-item .d{margin-top:6px; color:var(--muted); font-size:12px; line-height:1.6}
+
+    .slide-dots{
+      position:absolute; left:18px; bottom:18px;
+      display:flex; gap:8px; z-index:3;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: rgba(255,255,255,.22);
+      border:1px solid rgba(255,255,255,.22);
+      cursor:pointer;
+    }
+    .dot.active{background: var(--brand); border-color: rgba(123,211,255,.55)}
+
+    /* Section */
+    section{padding:54px 0;}
+    .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-bottom:18px;}
+    .sec-no{font-size:12px; letter-spacing:.28em; color:rgba(232,238,247,.65)}
+    h2{margin:8px 0 0; font-size:26px; letter-spacing:.14em}
+    .lead{margin:0; color:var(--muted); font-size:14px; line-height:1.8; max-width:880px}
+
+    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+    .grid-2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px;}
+
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+    }
+    .card h3{margin:0 0 10px; font-size:14px; letter-spacing:.16em}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.8}
+    .tag{display:inline-flex; padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:rgba(232,238,247,.82); font-size:12px; letter-spacing:.1em; background:rgba(255,255,255,.02)}
+
+    .steps{display:grid; gap:10px;}
+    .step{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .badge{
+      width:30px; height:30px;
+      border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, rgba(123,211,255,.22), rgba(167,139,250,.18));
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:800;
+      font-size:12px;
+      flex: 0 0 auto;
+    }
+    .step .title{font-weight:700; letter-spacing:.1em; font-size:13px}
+    .step .desc{margin-top:6px; color:var(--muted); font-size:12.5px; line-height:1.7}
+
+    /* Contact */
+    .contact{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .form{display:grid; gap:10px;}
+    label{font-size:12px; color:rgba(232,238,247,.8); letter-spacing:.12em}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus{border-color: rgba(123,211,255,.45); box-shadow: 0 0 0 4px rgba(123,211,255,.12)}
+    textarea{min-height:140px; resize:vertical}
+
+    footer{padding:24px 0 42px; border-top:1px solid var(--line); color:rgba(232,238,247,.6)}
+    footer .foot{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr;}
+      .hero-side{min-height:auto;}
+      .hero-main{min-height:420px;}
+      .grid-3{grid-template-columns:1fr;}
+      .grid-2{grid-template-columns:1fr;}
+      .contact{grid-template-columns:1fr;}
+      .hero-title{font-size:34px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="DEN&DA">
+        DEN&DA <small>KABUSHIKI KAISHA</small>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#services">事業内容</a>
+        <a href="#approach">進め方</a>
+        <a href="#industries">得意領域</a>
+        <a href="#company">会社概要</a>
+        <a href="#contact" class="cta">お問い合わせ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="top" class="container">
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-grid">
+
+      <div class="hero-card hero-main" id="hero">
+        <div class="slide active" data-i="0" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80')">
+          <div class="slide-content">
+            <div class="kicker">CONNECTING BUSINESS FLOW • CREATING VALUE</div>
+            <h1 class="hero-title">業務を、つなぐ。<br>仕組みを、整える。</h1>
+            <p class="hero-sub">DEN&DA株式会社は、業務プロセス分析／既存システム診断／最適なITソリューション設計／技術アーキテクチャ最適化／導入支援に加え、行政書士事務所など士業向けCRM・業務SaaSの開発を通じて、現場の「詰まり」を解消し、成果につながるDXを実現します。</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#contact">無料相談（初回）</a>
+              <a class="btn" href="#services">提供サービスを見る</a>
+            </div>
+          </div>
+          <div class="slide-dots" aria-label="Slides">
+            <button class="dot active" data-goto="0" aria-label="Slide 1"></button>
+            <button class="dot" data-goto="1" aria-label="Slide 2"></button>
+            <button class="dot" data-goto="2" aria-label="Slide 3"></button>
+          </div>
+        </div>
+
+        <div class="slide" data-i="1" style="background-image:url('https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1600&q=80')">
+          <div class="slide-content">
+            <div class="kicker">PROCESS • SYSTEM • PEOPLE</div>
+            <h1 class="hero-title">情報断点をなくし、<br>運用効率を上げる。</h1>
+            <p class="hero-sub">部門間の情報連携・データ流通・手戻りを、可視化 → 原因特定 → 仕組み化。小さく始めて、確実に改善を積み重ねます。</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#approach">進め方（4ステップ）</a>
+              <a class="btn" href="#contact">相談したい</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-i="2" style="background-image:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80')">
+          <div class="slide-content">
+            <div class="kicker">SUPPLY CHAIN • CRM • ANALYTICS</div>
+            <h1 class="hero-title">貿易・サプライチェーンの<br>DXを加速。</h1>
+            <p class="hero-sub">調達—販売—物流を一気通貫で設計し、在庫可視化、納期短縮、パートナー協調、データ分析による市場洞察／リスク管理まで支援します。</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#industries">得意領域を見る</a>
+              <a class="btn" href="#services">サービス一覧</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card hero-side">
+        <div class="mini-card">
+          <h3>FOCUS</h3>
+          <div class="mini-list">
+            <div class="mini-item">
+              <div class="t">業務プロセス改革</div>
+              <div class="d">部門横断の手順・責任・データの流れを整理し、ボトルネックを解消。</div>
+            </div>
+            <div class="mini-item">
+              <div class="t">システム診断・再設計</div>
+              <div class="d">現行システムの課題を構造化し、最短で成果が出る改善ロードマップを設計。</div>
+            </div>
+            <div class="mini-item">
+              <div class="t">導入・定着まで伴走</div>
+              <div class="d">要件定義〜実装〜運用設計まで。現場に“残る”仕組みに落とし込みます。</div>
+            </div>
+            <div class="mini-item">
+              <div class="t">士業向けCRM・業務SaaS</div>
+              <div class="d">行政書士事務所などの顧客管理／案件進捗／書類管理をオンライン化し、いつでも迅速に対応できる体制を支援。</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" aria-label="Services">
+    <div class="section-head">
+      <div>
+        <div class="sec-no">01 / SERVICES</div>
+        <h2>事業内容</h2>
+      </div>
+      <span class="tag">ITコンサルティング / DX支援</span>
+    </div>
+    <p class="lead">2つの議事録に記載された範囲で整理すると、DEN&DA株式会社の中核は「業務とITの両面から、詰まりの原因を特定し、実行可能な改善策を設計・導入支援する」ことです。具体サービスを以下にまとめます。</p>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="card">
+        <h3>業務プロセス分析</h3>
+        <p>部門間の情報断点、データ流転の遅さ、作業の滞留を可視化し、原因と対策を構造化します。</p>
+      </div>
+      <div class="card">
+        <h3>既存システム診断</h3>
+        <p>現状のシステム構成・運用・データ設計を点検し、無駄／重複／属人化を整理します。</p>
+      </div>
+      <div class="card">
+        <h3>解決策設計（To-Be）</h3>
+        <p>要件を整理し、最短で効果を出す段階的な解決策（業務ルール＋システム）を設計します。</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="card">
+        <h3>技術アーキテクチャ最適化</h3>
+        <p>拡張性・保守性・データ整合性の観点から、技術構成を整理し、運用コストを抑えます。</p>
+      </div>
+      <div class="card">
+        <h3>導入・実装支援</h3>
+        <p>要件定義、ベンダー選定、導入計画、運用設計まで伴走し、定着を重視します。</p>
+      </div>
+      <div class="card">
+        <h3>貿易DX（SCM/CRM/分析）</h3>
+        <p>調達—販売—物流の統合、在庫可視化、CRM導入、貿易データ分析による洞察・リスク管理を支援します。</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="card">
+        <h3>士業向けCRM・業務SaaS開発</h3>
+        <p>行政書士事務所などの顧客管理（CRM）、案件進捗、書類管理、タスク／期限管理を一体化。全オンラインで運用できる仕組みを構築します。</p>
+      </div>
+      <div class="card">
+        <h3>全オンライン化（受付〜フォロー）</h3>
+        <p>問い合わせ受付→案件登録→ステータス共有→履歴管理→再アプローチまでをオンラインで統合し、抜け漏れを防ぎます。</p>
+      </div>
+      <div class="card">
+        <h3>即時対応体制の設計</h3>
+        <p>「いつでも、すぐ返せる」を実現するために、通知・テンプレ・SLA・担当割当の運用設計まで含めて支援します。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" aria-label="Approach">
+    <div class="section-head">
+      <div>
+        <div class="sec-no">02 / APPROACH</div>
+        <h2>進め方</h2>
+      </div>
+      <span class="tag">調査 → 診断 → 設計 → 伴走</span>
+    </div>
+    <p class="lead">議事録にある「初期調査 → 方案書（提案） → 次回報告」という流れを、現場で回る形に落とした標準プロセスです。</p>
+
+    <div class="steps" style="margin-top:14px;">
+      <div class="step">
+        <div class="badge">01</div>
+        <div>
+          <div class="title">初期ヒアリング／現状把握</div>
+          <div class="desc">業務の流れ・KPI・課題感・関係者を整理。対象範囲とゴール（成功条件）を合意します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="badge">02</div>
+        <div>
+          <div class="title">詳細調査／ボトルネック診断</div>
+          <div class="desc">情報断点、データの二重入力、責任の曖昧さ、在庫／注文の見えにくさなどを特定します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="badge">03</div>
+        <div>
+          <div class="title">改善ロードマップ／方案書</div>
+          <div class="desc">クイックウィン（短期）と構造改善（中長期）に分け、投資対効果の高い順に実行案を提示します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="badge">04</div>
+        <div>
+          <div class="title">導入支援／定着</div>
+          <div class="desc">要件定義、運用設計、教育、改善サイクルまで伴走。現場に残る仕組みにします。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section id="industries" aria-label="Industries">
+    <div class="section-head">
+      <div>
+        <div class="sec-no">03 / INDUSTRIES</div>
+        <h2>得意領域</h2>
+      </div>
+      <span class="tag">SME / 貿易 / サプライチェーン / 士業</span>
+    </div>
+    <p class="lead">議事録で触れられているニーズを中心に、DEN&DAが価値を出しやすい領域を整理しました。</p>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="card">
+        <h3>社内業務の詰まり（情報断点）</h3>
+        <p>部門間連携の断点、データ流転の遅さ、手戻りが多い状況に対し、業務とシステムをセットで整理・改善します。</p>
+      </div>
+      <div class="card">
+        <h3>国際貿易オペレーション</h3>
+        <p>供給網の見える化、注文履約の短縮、在庫可視性、複雑な取引先協調、データ分析基盤の整備を支援します。</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="card">
+        <h3>SCM統合（調達—販売—物流）</h3>
+        <p>点在したExcel/ツールを統合し、在庫回転率・納期遵守率・欠品率などの改善につなげます。</p>
+      </div>
+      <div class="card">
+        <h3>CRM導入・パートナー管理</h3>
+        <p>顧客・仕入先・物流パートナーとの関係性をデータ化し、対応品質と再現性を高めます。</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="card">
+        <h3>士業（行政書士など）の業務オンライン化</h3>
+        <p>顧客・案件・書類・期限・コミュニケーションを一元化し、進捗の見える化と迅速な顧客対応を実現します。</p>
+      </div>
+      <div class="card">
+        <h3>問い合わせ即応・運用設計</h3>
+        <p>受付チャネル統合、通知設計、テンプレ返信、担当アサイン、SLA運用など“即時レス”を仕組みにします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANY -->
+  <section id="company" aria-label="Company">
+    <div class="section-head">
+      <div>
+        <div class="sec-no">04 / COMPANY</div>
+        <h2>会社概要</h2>
+      </div>
+      <span class="tag">※内容はドラフト</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>DEN&DA株式会社</h3>
+        <p>
+          代表：王 恒毅（社長 兼 ITコンサルティング総監）<br>
+          事業：ITコンサルティング／業務改革支援／貿易DX支援<br>
+          拠点：日本（※住所は確定後に記載）
+        </p>
+      </div>
+      <div class="card">
+        <h3>ミッション</h3>
+        <p>
+          「業務とデータを、滑らかにつなぐ。」<br>
+          現場の手触りを重視し、実行可能な改善策を、短いサイクルで積み上げます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-label="Contact">
+    <div class="section-head">
+      <div>
+        <div class="sec-no">05 / CONTACT</div>
+        <h2>お問い合わせ</h2>
+      </div>
+      <span class="tag">初回相談：無料（ドラフト）</span>
+    </div>
+
+    <div class="contact">
+      <div class="card">
+        <h3>相談内容の例</h3>
+        <p>
+          ・部門間の情報連携が悪く、手戻りが多い<br>
+          ・注文〜出荷までのリードタイムを短縮したい<br>
+          ・在庫が見えず欠品／滞留が発生する<br>
+          ・CRMや分析基盤を導入したいが、何から始めるべきか不明<br>
+          ・行政書士事務所の顧客管理／案件進捗をオンライン化し、問い合わせに即応したい
+        </p>
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <span class="tag">業務プロセス</span>
+          <span class="tag">システム統合</span>
+          <span class="tag">SCM</span>
+          <span class="tag">CRM</span>
+          <span class="tag">データ分析</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>フォーム（サンプル）</h3>
+        <form class="form" onsubmit="return false;">
+          <div>
+            <label for="cname">会社名</label>
+            <input id="cname" name="cname" placeholder="例）AZ Miles Limited" />
+          </div>
+          <div>
+            <label for="pname">お名前</label>
+            <input id="pname" name="pname" placeholder="例）Tanaka" />
+          </div>
+          <div>
+            <label for="email">メールアドレス</label>
+            <input id="email" name="email" type="email" placeholder="example@company.com" />
+          </div>
+          <div>
+            <label for="msg">ご相談内容</label>
+            <textarea id="msg" name="msg" placeholder="課題・背景・期待する成果を簡単にご記入ください"></textarea>
+          </div>
+          <button class="btn primary" type="submit">送信（デモ）</button>
+          <p style="margin:8px 0 0; color:var(--muted); font-size:12px; line-height:1.6;">
+            ※このフォームはデモです。実運用では送信先（メール/CRM）連携を実装します。
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>© <span id="y"></span> DEN&DA株式会社</div>
+      <div style="opacity:.9;">Designed in Japanese minimal style (inspired by kings-z.com)</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Simple hero slider
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  let idx = 0;
+  let timer = null;
+
+  function show(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    const s = slides.find(x => Number(x.dataset.i) === idx);
+    if (s) s.classList.add('active');
+    const d = dots.find(x => Number(x.dataset.goto) === idx);
+    if (d) d.classList.add('active');
+  }
+
+  function start(){
+    stop();
+    timer = setInterval(() => show(idx + 1), 6500);
+  }
+
+  function stop(){
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      show(Number(d.dataset.goto));
+      start();
+    });
+  });
+
+  // Pause on hover
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mouseenter', stop);
+  hero.addEventListener('mouseleave', start);
+
+  // Init
+  show(0);
+  start();
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
